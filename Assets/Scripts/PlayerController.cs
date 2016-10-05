@@ -4,7 +4,9 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     public GameObject platformPrefab;
+    public GameObject upArrows;
     private Rigidbody2D rb;
+    private float stoppedTime = 0;
 
     // Use this for initialization
     void Start()
@@ -34,5 +36,20 @@ public class PlayerController : MonoBehaviour
         }
         rb.velocity = new Vector2(velocity, rb.velocity.y);
         Physics2D.IgnoreLayerCollision(gameObject.layer, platformPrefab.layer, rb.velocity.y > 0);
+
+        if (rb.velocity.magnitude == 0)
+        {
+            stoppedTime += Time.fixedDeltaTime;
+            if (stoppedTime > 1)
+            {
+                Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height / 2));
+                upArrows.transform.position = new Vector3(0, point.y);
+                upArrows.SetActive(true);
+            }
+        } else
+        {
+            stoppedTime = 0;
+            upArrows.SetActive(false);
+        }
     }
 }
