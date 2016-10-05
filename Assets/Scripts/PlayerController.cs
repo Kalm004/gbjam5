@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public GameObject upArrows;
     private Rigidbody2D rb;
     private float stoppedTime = 0;
+    private float timeToRestart = 0;
 
     // Use this for initialization
     void Start()
@@ -30,7 +32,7 @@ public class PlayerController : MonoBehaviour
         {
             velocity = 5;
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow) && rb.velocity.y == 0)
         {
             rb.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
         }
@@ -50,6 +52,18 @@ public class PlayerController : MonoBehaviour
         {
             stoppedTime = 0;
             upArrows.SetActive(false);
+        }
+
+        if (Camera.main.WorldToScreenPoint(new Vector3(0, transform.position.y + GetComponent<SpriteRenderer>().sprite.bounds.size.y)).y < 0)
+        {
+            if (timeToRestart == 0)
+            {
+                timeToRestart = Time.time + 1;
+            }
+        }
+        if (timeToRestart != 0 && Time.time > timeToRestart)
+        {
+            SceneManager.LoadScene("Scene1");
         }
     }
 }
