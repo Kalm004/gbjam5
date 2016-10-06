@@ -4,6 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour {
     private int gemStones = 0;
+    private int hearts = 3;
+
+    public int getGemStones()
+    {
+        return gemStones;
+    }
+
+    public int getHearts()
+    {
+        return hearts;
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +29,11 @@ public class LevelController : MonoBehaviour {
     public void gemStonePickUp()
     {
         gemStones++;
+    }
+
+    public void playerHurt()
+    {
+        hearts--;
     }
 
     public void finishLevel()
