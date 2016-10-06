@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
             if (stoppedTime > 1)
             {
                 Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height / 2));
-                upArrows.transform.position = new Vector3(0, point.y);
+                upArrows.transform.position = new Vector3(upArrows.transform.position.x, point.y);
                 upArrows.SetActive(true);
             }
         } else
