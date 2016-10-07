@@ -7,6 +7,10 @@ public class PlayerController : MonoBehaviour
     public GameObject platformPrefab;
     public GameObject upArrows;
     public float blinkingTime = 1f;
+    public float jumpMaxTime = 0.2f;
+    public float jumpForce = 25f;
+    public float lateralAcceleratingTime = 0.5f;
+    public float lateralMaxVelocity = 3f;
     private Rigidbody2D rb;
     private float stoppedTime = 0;
     private float timeToRestart = 0;
@@ -15,6 +19,9 @@ public class PlayerController : MonoBehaviour
     private float currentBlink = 0;
     private SpriteRenderer spriteRenderer;
     private LevelController levelController;
+    private float pressedTimeUpKey = 0f;
+    private float pressedTimeLeftArrow = 0f;
+    private float pressedTimeRightArrow = 0f;
 
     // Use this for initialization
     void Start()
@@ -34,15 +41,44 @@ public class PlayerController : MonoBehaviour
         float velocity = 0;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            velocity = -5;
+            pressedTimeLeftArrow += Time.fixedDeltaTime;
+            if (pressedTimeLeftArrow < lateralAcceleratingTime)
+            {
+                velocity = - pressedTimeLeftArrow / lateralAcceleratingTime * lateralMaxVelocity;
+            }
+            else
+            {
+                velocity = - lateralMaxVelocity;
+            }
+        } else
+        {
+            pressedTimeLeftArrow = 0;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            velocity = 5;
-        }
-        if (Input.GetKey(KeyCode.UpArrow) && rb.velocity.y == 0)
+            pressedTimeRightArrow += Time.fixedDeltaTime;
+            if (pressedTimeRightArrow < lateralAcceleratingTime)
+            {
+                velocity = pressedTimeRightArrow / lateralAcceleratingTime * lateralMaxVelocity;
+            }
+            else
+            {
+                velocity = lateralMaxVelocity;
+            }
+        } else
         {
-            rb.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+            pressedTimeRightArrow = 0;
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            if ((pressedTimeUpKey == 0 && rb.velocity.y == 0) || (pressedTimeUpKey > 0 && pressedTimeUpKey < jumpMaxTime))
+            {
+                pressedTimeUpKey += Time.fixedDeltaTime;
+                rb.AddForce(Vector2.up * jumpForce);
+            }
+        } else
+        {
+            pressedTimeUpKey = 0;
         }
         rb.velocity = new Vector2(velocity, rb.velocity.y);
         Physics2D.IgnoreLayerCollision(gameObject.layer, platformPrefab.layer, rb.velocity.y > 0);
