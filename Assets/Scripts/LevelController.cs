@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour {
+    public GameObject gameOverScreen;
     private int gemStones = 0;
     private int hearts = 3;
 
@@ -47,6 +48,6 @@ public class LevelController : MonoBehaviour {
 
     public void gameOver()
     {
-        SceneManager.LoadScene("Scene1");
+        gameOverScreen.SetActive(true);
     }
 }

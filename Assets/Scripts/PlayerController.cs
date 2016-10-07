@@ -128,8 +128,11 @@ public class PlayerController : MonoBehaviour
 
     public void hitByRock()
     {
-        beingHitting = true;
-        blinkingLimitTime = Time.time + blinkingTime;
-        levelController.playerHurt();
+        if (!beingHitting)
+        {
+            beingHitting = true;
+            blinkingLimitTime = Time.time + blinkingTime;
+            levelController.playerHurt();
+        }
     }
 }
