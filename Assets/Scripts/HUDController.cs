@@ -31,20 +31,20 @@ public class HUDController : MonoBehaviour {
             fullGems[2].SetActive(true);
         }
 
-        if (levelController.getHearts() > 0)
+        if (levelController.getHearts() < 3)
         {
-            emptyHearts[0].SetActive(false);
-            fullHearts[0].SetActive(true);
+            emptyHearts[2].SetActive(true);
+            fullHearts[2].SetActive(false);
         }
-        if (levelController.getHearts() > 1)
+        if (levelController.getHearts() < 2)
         {
-            emptyHearts[1].SetActive(false);
-            fullHearts[1].SetActive(true);
+            emptyHearts[1].SetActive(true);
+            fullHearts[1].SetActive(false);
         }
-        if (levelController.getHearts() > 2)
+        if (levelController.getHearts() < 1)
         {
-            emptyHearts[2].SetActive(false);
-            fullHearts[2].SetActive(true);
+            emptyHearts[0].SetActive(true);
+            fullHearts[0].SetActive(false);
         }
     }
 }

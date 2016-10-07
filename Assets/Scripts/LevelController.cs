@@ -34,9 +34,18 @@ public class LevelController : MonoBehaviour {
     public void playerHurt()
     {
         hearts--;
+        if (hearts <= 0)
+        {
+            gameOver();
+        }
     }
 
     public void finishLevel()
+    {
+        SceneManager.LoadScene("Scene1");
+    }
+
+    public void gameOver()
     {
         SceneManager.LoadScene("Scene1");
     }

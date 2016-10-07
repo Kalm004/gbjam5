@@ -6,14 +6,22 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject platformPrefab;
     public GameObject upArrows;
+    public float blinkingTime = 1f;
     private Rigidbody2D rb;
     private float stoppedTime = 0;
     private float timeToRestart = 0;
+    private bool beingHitting = false;
+    private float blinkingLimitTime = 0;
+    private float currentBlink = 0;
+    private SpriteRenderer spriteRenderer;
+    private LevelController levelController;
 
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        levelController = Camera.main.GetComponent<LevelController>();
     }
 
     // Update is called once per frame
@@ -63,7 +71,29 @@ public class PlayerController : MonoBehaviour
         }
         if (timeToRestart != 0 && Time.time > timeToRestart)
         {
-            SceneManager.LoadScene("Scene1");
+            levelController.gameOver();
         }
+        if (blinkingLimitTime != 0)
+        {
+            currentBlink += Time.fixedDeltaTime;
+            if (currentBlink >= 0.1f)
+            {
+                currentBlink = 0;
+                spriteRenderer.enabled = !spriteRenderer.enabled;
+            }
+            if (Time.time >= blinkingLimitTime)
+            {
+                blinkingLimitTime = 0;
+                beingHitting = false;
+                spriteRenderer.enabled = true;
+            }
+        }
+    }
+
+    public void hitByRock()
+    {
+        beingHitting = true;
+        blinkingLimitTime = Time.time + blinkingTime;
+        levelController.playerHurt();
     }
 }
