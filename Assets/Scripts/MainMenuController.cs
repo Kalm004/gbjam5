@@ -4,12 +4,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour {
     public GameObject playButton;
+    public GameObject helpButton;
     public GameObject exitButton;
     public GameObject selector;
 
     enum Options
     {
         Play,
+        Help,
         Exit
     }
 
@@ -24,13 +26,39 @@ public class MainMenuController : MonoBehaviour {
 	void Update () {
 	    if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            selectedOption = Options.Exit;
-            selector.transform.position = new Vector3(selector.transform.position.x, exitButton.transform.position.y);
+            switch (selectedOption)
+            {
+                case Options.Play:
+                    selectedOption = Options.Help;        
+                    break;
+                case Options.Help:
+                    selectedOption = Options.Exit;
+                    break;
+                case Options.Exit:
+                    selectedOption = Options.Play;
+                    break;
+                default:
+                    break;
+            }
+            moveSelector();
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            selectedOption = Options.Play;
-            selector.transform.position = new Vector3(selector.transform.position.x, playButton.transform.position.y);
+            switch (selectedOption)
+            {
+                case Options.Play:
+                    selectedOption = Options.Exit;
+                    break;
+                case Options.Help:
+                    selectedOption = Options.Play;
+                    break;
+                case Options.Exit:
+                    selectedOption = Options.Help;
+                    break;
+                default:
+                    break;
+            }
+            moveSelector();
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -47,4 +75,22 @@ public class MainMenuController : MonoBehaviour {
             }
         }
 	}
+
+    private void moveSelector()
+    {
+        switch (selectedOption)
+        {
+            case Options.Play:
+                selector.transform.position = new Vector3(selector.transform.position.x, playButton.transform.position.y);
+                break;
+            case Options.Help:
+                selector.transform.position = new Vector3(selector.transform.position.x, helpButton.transform.position.y);
+                break;
+            case Options.Exit:
+                selector.transform.position = new Vector3(selector.transform.position.x, exitButton.transform.position.y);
+                break;
+            default:
+                break;
+        }
+    }
 }
