@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 25f;
     public float lateralAcceleratingTime = 0.5f;
     public float lateralMaxVelocity = 3f;
+    public float jumpThresshold = 0.2f;
     private Rigidbody2D rb;
     private float stoppedTime = 0;
     private float timeToRestart = 0;
@@ -96,6 +97,24 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Moving", false);
         }
+
+        if (rb.velocity.y > jumpThresshold)
+        {
+            animator.SetBool("Jumping", true);
+            animator.SetInteger("JumpDirection", 1);
+        } else if (rb.velocity.y < -jumpThresshold)
+        {
+            animator.SetBool("Jumping", true);
+            animator.SetInteger("JumpDirection", -1);
+        } else if (rb.velocity.y != 0)
+        {
+            animator.SetBool("Jumping", true);
+            animator.SetInteger("JumpDirection", 0);
+        } else
+        {
+            animator.SetBool("Jumping", false);
+        }
+
         Physics2D.IgnoreLayerCollision(gameObject.layer, platformPrefab.layer, rb.velocity.y > 0);
 
         if (rb.velocity.magnitude == 0)
