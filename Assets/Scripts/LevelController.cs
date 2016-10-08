@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour {
     public GameObject gameOverScreen;
+    public GameObject finishScreen;
+    public int levelNumber;
     private int gemStones = 0;
     private int hearts = 3;
 
@@ -43,7 +45,7 @@ public class LevelController : MonoBehaviour {
 
     public void finishLevel()
     {
-        SceneManager.LoadScene("Scene1");
+        finishScreen.SetActive(true);
     }
 
     public void gameOver()
