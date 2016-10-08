@@ -14,14 +14,14 @@ public class CameraFollow : MonoBehaviour {
 	void FixedUpdate () {
         if (!moving)
         {
-            if (playerRb.velocity.y == 0 && Camera.main.WorldToScreenPoint(playerRb.transform.position).y > 100)
+            if (playerRb.velocity.y == 0 && Camera.main.WorldToScreenPoint(playerRb.transform.position).y > Screen.height * 0.66)
             {
                 moving = true;
             }
         } else
         {
             transform.Translate(0, 5 * Time.fixedDeltaTime, 0);
-            if (Camera.main.WorldToScreenPoint(playerRb.transform.position).y < 40)
+            if (Camera.main.WorldToScreenPoint(playerRb.transform.position).y < Screen.height * 0.33)
             {
                 moving = false;
             }
