@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private float pressedTimeUpKey = 0f;
     private float pressedTimeLeftArrow = 0f;
     private float pressedTimeRightArrow = 0f;
+    private Animator animator;
 
     // Use this for initialization
     void Start()
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         levelController = Camera.main.GetComponent<LevelController>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -81,6 +83,19 @@ public class PlayerController : MonoBehaviour
             pressedTimeUpKey = 0;
         }
         rb.velocity = new Vector2(velocity, rb.velocity.y);
+        if (velocity > 0)
+        {
+            animator.SetBool("Moving", true);
+            animator.SetInteger("Direction", 1);
+        }
+        else if (velocity < 0)
+        {
+            animator.SetBool("Moving", true);
+            animator.SetInteger("Direction", -1);
+        } else
+        {
+            animator.SetBool("Moving", false);
+        }
         Physics2D.IgnoreLayerCollision(gameObject.layer, platformPrefab.layer, rb.velocity.y > 0);
 
         if (rb.velocity.magnitude == 0)

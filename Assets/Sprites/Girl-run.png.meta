@@ -1,14 +1,17 @@
 fileFormatVersion: 2
-guid: bb06f231939a5fc439f8c997d45f2697
-timeCreated: 1475912003
+guid: 6528fcfaa7187a44f8a347def215483a
+timeCreated: 1475911962
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Girl-Idle-2-left_0
-    21300002: Girl-Idle-2-left_1
-    21300004: Girl-Idle-2-left_2
-    21300006: Girl-Idle-2-left_3
-    21300008: Girl-Idle-2-left_4
+    21300000: Girl-run_0
+    21300002: Girl-run_1
+    21300004: Girl-run_2
+    21300006: Girl-run_3
+    21300008: Girl-run_4
+    21300010: Girl-run_5
+    21300012: Girl-run_6
+    21300014: Girl-run_7
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -58,7 +61,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Girl-Idle-2-left_0
+      name: Girl-run_0
       rect:
         serializedVersion: 2
         x: 0
@@ -71,7 +74,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Girl-Idle-2-left_1
+      name: Girl-run_1
       rect:
         serializedVersion: 2
         x: 24
@@ -84,7 +87,20 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Girl-Idle-2-left_2
+      name: Girl-run_2
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Girl-run_3
       rect:
         serializedVersion: 2
         x: 0
@@ -97,7 +113,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Girl-Idle-2-left_3
+      name: Girl-run_4
       rect:
         serializedVersion: 2
         x: 24
@@ -110,10 +126,36 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Girl-Idle-2-left_4
+      name: Girl-run_5
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Girl-run_6
       rect:
         serializedVersion: 2
         x: 0
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Girl-run_7
+      rect:
+        serializedVersion: 2
+        x: 24
         y: 0
         width: 24
         height: 24
