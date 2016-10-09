@@ -8,10 +8,12 @@ public class StoneSpawnerController : MonoBehaviour {
     private bool generatingStone = false;
     private float elapsedTime = 0;
     private float rockHeight;
+    private AudioSource audioSource;
 
     // Use this for initialization
     void Start () {
         rockHeight = rockPrefab.GetComponent<SpriteRenderer>().bounds.size.y;
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -25,6 +27,7 @@ public class StoneSpawnerController : MonoBehaviour {
                 generatingStone = false;
                 elapsedTime = 0;
                 exclamation.SetActive(false);
+                audioSource.Play();
                 GameObject rock = GameObject.Instantiate(rockPrefab);
                 rock.transform.position = transform.position;
             }

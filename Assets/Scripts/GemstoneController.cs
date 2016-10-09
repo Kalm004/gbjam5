@@ -7,11 +7,13 @@ public class GemstoneController : MonoBehaviour
     public float speed = 1;
     private float currentElapsedTime = 0;
     private LevelController levelCtrl;
+    private PlayerController playerCtrl;
 
     // Use this for initialization
     void Start()
     {
         levelCtrl = Camera.main.GetComponent<LevelController>();
+        playerCtrl = GameObject.FindGameObjectWithTag(GameTags.Player).GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -25,6 +27,7 @@ public class GemstoneController : MonoBehaviour
         if (collision.tag == GameTags.PlayerBig)
         {
             levelCtrl.gemStonePickUp();
+            playerCtrl.gemStonePickUp();
             Destroy(gameObject);
         }
     }

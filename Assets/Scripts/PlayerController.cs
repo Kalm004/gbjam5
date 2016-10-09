@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour
     public float lateralAcceleratingTime = 0.5f;
     public float lateralMaxVelocity = 3f;
     public float jumpThresshold = 0.2f;
+    public AudioSource death;
+    public AudioSource hit;
+    public AudioSource jump;
+    public AudioSource pickUp;
     private Rigidbody2D rb;
     private float stoppedTime = 0;
     private float timeToRestart = 0;
@@ -74,6 +78,10 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
+            if (pressedTimeUpKey == 0 && rb.velocity.y == 0)
+            {
+                jump.Play();
+            }
             if ((pressedTimeUpKey == 0 && rb.velocity.y == 0) || (pressedTimeUpKey > 0 && pressedTimeUpKey < jumpMaxTime))
             {
                 pressedTimeUpKey += Time.fixedDeltaTime;
@@ -137,6 +145,7 @@ public class PlayerController : MonoBehaviour
             if (timeToRestart == 0)
             {
                 timeToRestart = Time.time + 1;
+                death.Play();
             }
         }
         if (timeToRestart != 0 && Time.time > timeToRestart)
@@ -166,7 +175,13 @@ public class PlayerController : MonoBehaviour
         {
             beingHitting = true;
             blinkingLimitTime = Time.time + blinkingTime;
+            hit.Play();
             levelController.playerHurt();
         }
+    }
+
+    public void gemStonePickUp()
+    {
+        pickUp.Play();
     }
 }
