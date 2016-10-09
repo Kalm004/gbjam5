@@ -6,6 +6,7 @@ public class GameOverController : MonoBehaviour {
     public GameObject retryButton;
     public GameObject levelSelectButton;
     public GameObject selector;
+    private LevelController levelController;
 
     enum Options
     {
@@ -17,8 +18,8 @@ public class GameOverController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-	
-	}
+        levelController = Camera.main.GetComponent<LevelController>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -34,9 +35,16 @@ public class GameOverController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (selectedOption == Options.Retry)
+            switch (selectedOption)
             {
-                SceneManager.LoadScene("Scene1");
+                case Options.Retry:
+                    SceneManager.LoadScene(Scenes.Level + levelController.levelNumber.ToString());
+                    break;
+                case Options.LevelSelect:
+                    SceneManager.LoadScene(Scenes.LevelSelection);
+                    break;
+                default:
+                    break;
             }
         }
 	}
