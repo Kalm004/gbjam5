@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour {
     public GameObject[] emptyGems;
     public GameObject[] fullGems;
     public GameObject[] emptyHearts;
     public GameObject[] fullHearts;
+    public Text levelText;
     private LevelController levelController;
 
     // Use this for initialization
     void Start () {
         levelController = Camera.main.GetComponent<LevelController>();
+        levelText.text = "LEVEL " + levelController.levelNumber;
 	}
 	
 	// Update is called once per frame

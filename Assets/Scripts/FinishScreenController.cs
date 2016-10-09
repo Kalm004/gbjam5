@@ -31,6 +31,12 @@ public class FinishScreenController : MonoBehaviour {
             gemIndicators[i].sprite = gemFull;
         }
         title.text = "Level " + levelController.levelNumber + " complete!";
+        if (levelController.levelNumber == GameManager.levelCount)
+        {
+            nextLevelButton.SetActive(false);
+            selectedOption = Options.LevelSelect;
+        }
+        moveSelector();
     }
 	
 	// Update is called once per frame
@@ -46,7 +52,14 @@ public class FinishScreenController : MonoBehaviour {
                     selectedOption = Options.Exit;
                     break;
                 case Options.Exit:
-                    selectedOption = Options.NextLevel;
+                    if (levelController.levelNumber == GameManager.levelCount)
+                    {
+                        selectedOption = Options.LevelSelect;
+                    }
+                    else
+                    {
+                        selectedOption = Options.NextLevel;
+                    }
                     break;
                 default:
                     break;
@@ -61,7 +74,14 @@ public class FinishScreenController : MonoBehaviour {
                     selectedOption = Options.Exit;
                     break;
                 case Options.LevelSelect:
-                    selectedOption = Options.NextLevel;
+                    if (levelController.levelNumber == GameManager.levelCount)
+                    {
+                        selectedOption = Options.Exit;
+                    }
+                    else
+                    {
+                        selectedOption = Options.NextLevel;
+                    }
                     break;
                 case Options.Exit:
                     selectedOption = Options.LevelSelect;
