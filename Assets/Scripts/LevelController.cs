@@ -45,6 +45,7 @@ public class LevelController : MonoBehaviour {
 
     public void finishLevel()
     {
+        GameManager.Instance.saveLevelResult(levelNumber, gemStones);
         finishScreen.SetActive(true);
     }
 

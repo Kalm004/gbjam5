@@ -10,6 +10,7 @@ public class FinishScreenController : MonoBehaviour {
     public Image[] gemIndicators;
     public Sprite gemFull;
     public Text title;
+    private LevelController levelController;
 
     enum Options
     {
@@ -21,7 +22,7 @@ public class FinishScreenController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        LevelController levelController = Camera.main.GetComponent<LevelController>();
+        levelController = Camera.main.GetComponent<LevelController>();
         int gems = levelController.getGemStones();
         for (int i = 0; i < gems; i++)
         {
@@ -44,9 +45,16 @@ public class FinishScreenController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (selectedOption == Options.NextLevel)
+            switch (selectedOption)
             {
-                SceneManager.LoadScene("Scene1");
+                case Options.NextLevel:
+                    SceneManager.LoadScene(Scenes.Level + (levelController.levelNumber + 1).ToString());
+                    break;
+                case Options.LevelSelect:
+                    SceneManager.LoadScene(Scenes.LevelSelection);
+                    break;
+                default:
+                    break;
             }
         }
 	}
