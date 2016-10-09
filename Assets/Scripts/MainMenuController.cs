@@ -67,6 +67,9 @@ public class MainMenuController : MonoBehaviour {
                 case Options.Play:
                     SceneManager.LoadScene(Scenes.LevelSelection);
                     break;
+                case Options.Help:
+                    SceneManager.LoadScene(Scenes.Help);
+                    break;
                 case Options.Exit:
                     Application.Quit();
                     break;
