@@ -43,7 +43,10 @@
         {
             gameInfo.maxUnlockedLevel = level + 1;
         }
-        gameInfo.gems[level - 1] = gems;
+        if (gameInfo.gems[level - 1] < gems)
+        {
+            gameInfo.gems[level - 1] = gems;
+        }
         saveGame();
     }
 
