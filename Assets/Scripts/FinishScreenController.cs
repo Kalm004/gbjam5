@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class FinishScreenController : MonoBehaviour {
     public GameObject nextLevelButton;
     public GameObject levelSelectButton;
+    public GameObject exitButton;
     public GameObject selector;
     public Image[] gemIndicators;
     public Sprite gemFull;
@@ -15,7 +16,8 @@ public class FinishScreenController : MonoBehaviour {
     enum Options
     {
         NextLevel,
-        LevelSelect
+        LevelSelect,
+        Exit
     }
 
     Options selectedOption = Options.NextLevel;
@@ -35,13 +37,39 @@ public class FinishScreenController : MonoBehaviour {
 	void Update () {
 	    if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            selectedOption = Options.LevelSelect;
-            selector.transform.position = new Vector3(selector.transform.position.x, levelSelectButton.transform.position.y);
+            switch (selectedOption)
+            {
+                case Options.NextLevel:
+                    selectedOption = Options.LevelSelect;
+                    break;
+                case Options.LevelSelect:
+                    selectedOption = Options.Exit;
+                    break;
+                case Options.Exit:
+                    selectedOption = Options.NextLevel;
+                    break;
+                default:
+                    break;
+            }
+            moveSelector();
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            selectedOption = Options.NextLevel;
-            selector.transform.position = new Vector3(selector.transform.position.x, nextLevelButton.transform.position.y);
+            switch (selectedOption)
+            {
+                case Options.NextLevel:
+                    selectedOption = Options.Exit;
+                    break;
+                case Options.LevelSelect:
+                    selectedOption = Options.NextLevel;
+                    break;
+                case Options.Exit:
+                    selectedOption = Options.LevelSelect;
+                    break;
+                default:
+                    break;
+            }
+            moveSelector();
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -53,9 +81,30 @@ public class FinishScreenController : MonoBehaviour {
                 case Options.LevelSelect:
                     SceneManager.LoadScene(Scenes.LevelSelection);
                     break;
+                case Options.Exit:
+                    SceneManager.LoadScene(Scenes.MainMenu);
+                    break;
                 default:
                     break;
             }
         }
 	}
+
+    private void moveSelector()
+    {
+        switch (selectedOption)
+        {
+            case Options.NextLevel:
+                selector.transform.position = new Vector3(selector.transform.position.x, nextLevelButton.transform.position.y);
+                break;
+            case Options.LevelSelect:
+                selector.transform.position = new Vector3(selector.transform.position.x, levelSelectButton.transform.position.y);
+                break;
+            case Options.Exit:
+                selector.transform.position = new Vector3(selector.transform.position.x, exitButton.transform.position.y);
+                break;
+            default:
+                break;
+        }
+    }
 }

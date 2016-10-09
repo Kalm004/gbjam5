@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class GameOverController : MonoBehaviour {
-    public GameObject retryButton;
+public class PauseScreenController : MonoBehaviour {
+    public GameObject resumeButton;
     public GameObject levelSelectButton;
     public GameObject exitButton;
     public GameObject selector;
+    public Image[] gemIndicators;
+    public Sprite gemFull;
     private LevelController levelController;
 
     enum Options
     {
-        Retry,
+        Resume,
         LevelSelect,
         Exit
     }
 
-    Options selectedOption = Options.Retry;
+    Options selectedOption = Options.Resume;
 
     // Use this for initialization
     void Start () {
@@ -25,18 +28,22 @@ public class GameOverController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        for (int i = 0; i < levelController.getGemStones(); i++)
+        {
+            gemIndicators[i].sprite = gemFull;
+        }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             switch (selectedOption)
             {
-                case Options.Retry:
+                case Options.Resume:
                     selectedOption = Options.LevelSelect;
                     break;
                 case Options.LevelSelect:
                     selectedOption = Options.Exit;
                     break;
                 case Options.Exit:
-                    selectedOption = Options.Retry;
+                    selectedOption = Options.Resume;
                     break;
                 default:
                     break;
@@ -47,11 +54,11 @@ public class GameOverController : MonoBehaviour {
         {
             switch (selectedOption)
             {
-                case Options.Retry:
+                case Options.Resume:
                     selectedOption = Options.Exit;
                     break;
                 case Options.LevelSelect:
-                    selectedOption = Options.Retry;
+                    selectedOption = Options.Resume;
                     break;
                 case Options.Exit:
                     selectedOption = Options.LevelSelect;
@@ -63,10 +70,11 @@ public class GameOverController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            Time.timeScale = 1;
             switch (selectedOption)
             {
-                case Options.Retry:
-                    SceneManager.LoadScene(Scenes.Level + levelController.levelNumber.ToString());
+                case Options.Resume:
+                    gameObject.SetActive(false);
                     break;
                 case Options.LevelSelect:
                     SceneManager.LoadScene(Scenes.LevelSelection);
@@ -79,12 +87,13 @@ public class GameOverController : MonoBehaviour {
             }
         }
 	}
+
     private void moveSelector()
     {
         switch (selectedOption)
         {
-            case Options.Retry:
-                selector.transform.position = new Vector3(selector.transform.position.x, retryButton.transform.position.y);
+            case Options.Resume:
+                selector.transform.position = new Vector3(selector.transform.position.x, resumeButton.transform.position.y);
                 break;
             case Options.LevelSelect:
                 selector.transform.position = new Vector3(selector.transform.position.x, levelSelectButton.transform.position.y);

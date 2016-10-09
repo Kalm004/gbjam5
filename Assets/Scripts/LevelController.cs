@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour {
     public GameObject gameOverScreen;
     public GameObject finishScreen;
+    public GameObject pauseScreen;
     public int levelNumber;
     private int gemStones = 0;
     private int hearts = 3;
@@ -26,7 +27,11 @@ public class LevelController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    if (Input.GetKeyDown(KeyCode.Escape) && !pauseScreen.activeSelf)
+        {
+            Time.timeScale = 0;
+            pauseScreen.SetActive(true);
+        }
 	}
 
     public void gemStonePickUp()
