@@ -10,14 +10,14 @@ public class DestructiblePlatformController : MonoBehaviour
     private float destroyOnTime;
     private bool destroyed = false;
     private SpriteRenderer spriteRenderer;
-    private BoxCollider2D boxCollider;
+    private EdgeCollider2D edgeCollider;
 
     // Use this for initialization
     void Start()
     {
         player = GameObject.FindGameObjectWithTag(GameTags.Player).GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        boxCollider = GetComponent<BoxCollider2D>();
+        edgeCollider = GetComponent<EdgeCollider2D>();
     }
 
     // Update is called once per frame
@@ -46,6 +46,6 @@ public class DestructiblePlatformController : MonoBehaviour
     private void hide()
     {
         spriteRenderer.enabled = false;
-        boxCollider.enabled = false;
+        edgeCollider.enabled = false;
     }
 }
