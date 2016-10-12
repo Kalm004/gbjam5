@@ -49,7 +49,7 @@ public class LevelSelectionController : MonoBehaviour {
                 selectedLevel += 3;
             }
         }
-        if (Input.GetKey(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             SceneManager.LoadScene(Scenes.Level + selectedLevel.ToString());
         }

@@ -39,7 +39,7 @@
 
     public void saveLevelResult(int level, int gems)
     {
-        if (gameInfo.maxUnlockedLevel <= level)
+        if (gameInfo.maxUnlockedLevel <= level && level < levelCount)
         {
             gameInfo.maxUnlockedLevel = level + 1;
         }
